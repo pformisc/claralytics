@@ -6,36 +6,40 @@ from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
 from apiclient.discovery import build
 
+httpObj = httplib2.Http()
+
 '''
 	The index function renders the welcome page on request
 '''
 @app.route('/', methods=['GET'])
 def index():
-	response_obj = ''
-
 	if 'credentials' in session:
-		credentials = session['credentials']
-		username = getUserName(credentials)
-		response_obj = make_response(render_template("index.html", username=username))
-		response_obj.headers['Content-Type'] = 'text/html'
-	else:
-		response_obj = make_response(render_template("index.html", username=None))
-
-	return response_obj
+		username = getUserName(session['credentials'])
+		return render_template("index.html", username=username)
+	
+	return render_template("index.html", username=None)
 
 '''
 	The login function redirects the user to the Google Authorization page
 '''
 @app.route('/login', methods=['GET'])
 def login():
-	auth_flow = getFlow()
-	auth_uri = auth_flow.step1_get_authorize_url()
+	auth_flow = constructFlow() # Get the Flow object
+	'''
+		Call the Flow object's authorize_url()
+		This returns a URL to Google's login page
+	'''
+	auth_uri = auth_flow.step1_get_authorize_url() 
 	return redirect(auth_uri)
 
+'''
+	The logout function removes all the user related credentials from the session
+	It then redirects the user back to the home page
+'''
 @app.route('/logout', methods=['GET'])
 def logout():
 	del session['credentials']
-	return redirect(url_for('index'))
+	return redirect(url_for('index')) 
 
 '''
 	The authorization_redirect function is a callback function.
@@ -46,7 +50,7 @@ def authorization_redirect():
 	auth_code = request.args.get('code', None)
 
 	if auth_code:
-		auth_flow = getFlow()
+		auth_flow = constructFlow()
 		try:
 			auth_credentials = auth_flow.step2_exchange(auth_code)
 		except FlowExchangeError:
@@ -59,7 +63,7 @@ def authorization_redirect():
 '''
 	Constructs a Flow object and returns it
 '''
-def getFlow():
+def constructFlow():
 	flow_obj = OAuth2WebServerFlow(client_id = app.config['CLIENT_ID'],
 								client_secret = app.config['CLIENT_SECRET'],
 								scope = app.config['SCOPE'],
@@ -71,7 +75,6 @@ def getFlow():
 	Authorizes the specified credentials and returns the user's username
 '''
 def getUserName(credentials):
-	httpObj = httplib2.Http()
 	httpObj = credentials.authorize(httpObj)
 	service = build('analytics', 'v3', http=httpObj)
 
