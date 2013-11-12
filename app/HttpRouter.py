@@ -6,8 +6,6 @@ from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
 from apiclient.discovery import build
 
-httpObj = httplib2.Http()
-
 '''
 	The index function renders the welcome page on request
 '''
@@ -74,6 +72,7 @@ def constructFlow():
 	Authorizes the specified credentials and returns the user's username
 '''
 def getUserName(credentials):
+	httpObj = httplib2.Http()
 	httpObj = credentials.authorize(httpObj)
 	service = build('analytics', 'v3', http=httpObj)
 
