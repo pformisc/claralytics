@@ -1,0 +1,27 @@
+<!-- This is the base template. All other web pages will inherit a basic structure from this file -->
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class = "navbar" style="height:50px;width:100%">
+			<div class = "left" style="float:left;height:inherit;">
+				<h4> Google OAuth2.0 with Flask </h4>
+			</div>
+			<div class = "right" style="float:right;height:inherit;">
+				<div id="login_button" style="margin-top:50%">
+					{% if username %}
+						<a href="/logout"> Logout </a>
+					{% else %}
+						<a href="/login"> Login </a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="content">
+		{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>
