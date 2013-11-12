@@ -64,11 +64,10 @@ def authorization_redirect():
 	Constructs a Flow object and returns it
 '''
 def constructFlow():
-	flow_obj = OAuth2WebServerFlow(client_id = app.config['CLIENT_ID'],
-								client_secret = app.config['CLIENT_SECRET'],
-								scope = app.config['SCOPE'],
-								redirect_uri = app.config['REDIRECT_URI'] 
-							   )
+	flow_obj = OAuth2WebServerFlow(client_id = app.config['CLIENT_ID'], 
+		client_secret = app.config['CLIENT_SECRET'],
+		scope = app.config['SCOPE'],
+		redirect_uri = app.config['REDIRECT_URI'])
 	return flow_obj
 
 '''
