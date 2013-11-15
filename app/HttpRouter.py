@@ -6,18 +6,27 @@ from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
 from apiclient.discovery import build
 
-httpObj = httplib2.Http()
-
 '''
 	The index function renders the welcome page on request
 '''
 @app.route('/', methods=['GET'])
 def index():
 	if 'credentials' in session:
-		username = getUserName(session['credentials'])
-		return render_template("index.html", username=username)
+		return redirect(url_for('dashboard'))
 	
-	return render_template("index.html", username=None)
+	return render_template("index.html")
+	
+'''
+	The dashboard function renders the dashboard page on request
+	If the user is not logged in, redirect the user back to the home page
+'''
+@app.route('/dashboard',  methods=['GET'])
+def dashboard():
+	if 'credentials' in session:
+		username = getUserName(session['credentials'])
+		return render_template("dashboard.html", username=username)
+
+	return redirect(url_for('index'))
 
 '''
 	The login function redirects the user to the Google Authorization page
@@ -58,7 +67,7 @@ def authorization_redirect():
 
 		session['credentials'] = auth_credentials
 
-	return redirect(url_for('index'))
+	return redirect(url_for('dashboard'))
 
 '''
 	Constructs a Flow object and returns it
@@ -74,6 +83,7 @@ def constructFlow():
 	Authorizes the specified credentials and returns the user's username
 '''
 def getUserName(credentials):
+	httpObj = httplib2.Http()
 	httpObj = credentials.authorize(httpObj)
 	service = build('analytics', 'v3', http=httpObj)
 
