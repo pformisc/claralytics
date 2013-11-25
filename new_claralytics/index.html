@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8">
+	<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+	<title>claralytics</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+	<link rel="stylesheet/less" href="less/bootstrap.less" type="text/css">
+	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+	<!--script src="js/less-1.3.3.min.js"></script-->
+	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+
+	<link href="css/style.css" rel="stylesheet">
+	<link href = "css/custom.css" rel = "stylesheet">
+	<!--<script src="js/respond.js"></script>-->
+
+	
+ <script src = "http://code.jquery.com/jquery-latest.min.js"></script>
+ <script src= "http://code.jquery.com/jquery-1.8.2.min.js"></script>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+ <!-- script for bar graph-->
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+	  
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Week1', 'Hits'],
+          ['Week 1',  300],
+          ['Week 2',  500],
+          ['Week 3',  420],
+          ['Week 4',  200]
+        ]);
+		google.visualization.ColorFormat();
+		
+    
+        var options = {
+          title: 'Hits for The Santa Clara in this month (shown per week)',
+          vAxis: {title: 'Week number',  titleTextStyle: {color: 'red'}},
+		  hAxis: {title: 'Hits on each week',  titleTextStyle: {color: 'red'}},
+		  legend: {position:'none'},
+		  series: {
+				0: {
+                    // set the color to change to
+                    color: '009EBF',
+                    // don't show this in the legend
+                    visibleInLegend: false,				
+					
+                },
+                1: {
+                    // set the color to change to
+                    color: 'FFA500',
+                    // don't show this in the legend
+                    visibleInLegend: false,			 
+                }
+		  }
+		
+		  
+		  
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('panel-304865'));
+        chart.draw(data, options);
+		
+		
+		 ; // Apply formatter to second column
+      }
+    </script>
+
+ <!-- script for line graph-->
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+		var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+    	data.addColumn('number', 'Hits');
+    	data.addRow([new Date(2013, 0, 1), 10])
+    	data.addRow([new Date(2013, 0, 2), 15])
+    	data.addRow([new Date(2013, 0, 3), 40])
+    	data.addRow([new Date(2013, 0, 4), 50])
+		data.addRow([new Date(2013, 0, 5), 60])
+		data.addRow([new Date(2013, 0, 6), 80])
+		data.addRow([new Date(2013, 0, 7), 50])
+
+        var options = {
+         // title: 'Hits per day',
+		  'legend':'none',
+		  hAxis:
+		  {
+			 format:'EEE , d',
+			 title:'Days in a week',
+			 slantedText:true,
+			 slantedTextAngle:30,
+			 textStyle:{
+				 bold:true},
+			 titleTextStyle: {color: 'red'}
+			
+		  },
+		  vAxis:
+		  {
+			 title:'Number of Hits'	 ,
+			 gridlines:{count:5} ,
+			  textStyle:{
+				 bold:true},
+			 titleTextStyle: {color: 'red'}
+		  },
+		  pointSize:4
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('panel-465099'));
+        chart.draw(data, options);
+      }
+    </script>
+<!-- script for pie chart-->
+<script>
+	//Visualization API for the pie chart package
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Usage','Number'],
+		  ['Mobile',300],
+		  ['PC',700],
+		  ['Tablets',200]
+        ]);
+        
+
+        var options = {
+         		
+          is3D: true,
+		  colors: ['#E5D843','#80BF34','#38A660'],
+		   'legend': 'right',
+		    pieSliceText: 'percentage',
+         	 slices: {  1: {offset: 0.2},
+                    2: {offset: 0.1},
+                    3: {offset: 0.0},
+			pieSliceTextStyle:
+			{
+				fontSize:'20'
+			},
+			'pieStartAngle':'160'
+                    
+          },
+		  
+        };
+
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+</head>
+
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h1 class="text-center text-primary" style = "font-family:Gauntlet">
+				Clara-Lytics
+			</h1>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-6 column">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-stats"></span>  Number of Hits
+					</h3>
+				</div>
+				<div class="tabbable" id="tabs-263782">
+				<ul class="nav nav-tabs">
+					<li class="active actTab">
+						<a href="#panel-465099" data-toggle="tab">Weekly</a>
+					</li>
+					<li>
+						<a href="#panel-304865" data-toggle="tab">Monthly</a>
+					</li>
+				</ul>
+				<div class="tab-content graphs">
+					<div class="tab-pane active" id="panel-465099" style="width: 500px; height: 200px;">
+						<p>
+							hits for a week
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-304865" style="width: 500px; height: 200px;">
+						<p>
+							hits for a month
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-4 column">
+				</div>
+				<div class="col-md-4 column">
+					 <button type="button" class="btn btn-sm ">
+					 	<span class="glyphicon glyphicon-chevron-left"></span>Prev</button>
+				</div>
+				
+				<div class="col-md-4 column">
+					 <button type="button" class="btn btn-sm nextbtn">Next<span class="glyphicon glyphicon-chevron-right"></span></button>
+				</div>
+			</div>  
+			</div>
+		</div>
+		<div class="col-md-6 column">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-eye-open"></span> Most Popular Articles and Categories
+					</h3>
+				</div>
+				<div class="col-md-12 column">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Article
+						</th>
+						<th>
+							Category
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							1
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							01/04/2012
+						</td>
+						
+					</tr>
+					<tr class="active">
+						<td>
+							1
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							01/04/2012
+						</td>
+						
+					</tr>
+					<tr class="success">
+						<td>
+							2
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							02/04/2012
+						</td>
+						
+					</tr>
+					<tr class="warning">
+						<td>
+							3
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							03/04/2012
+						</td>
+						
+					</tr>
+					<tr class="danger">
+						<td>
+							4
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							04/04/2012
+						</td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>				
+		</div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-8 column">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-google-maps"></span>Geographic User Base
+					</h3>
+				</div>
+				<div class="panel-body">
+					Panel content
+				</div>
+				<div class="panel-footer">
+					Panel footer
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 column">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-pie-chart"></span> Device Type
+					</h3>
+				</div>
+				<div class="row clearfix">
+					<div class="col-md-12">
+						<div id = "pie">		
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 lastRow">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="300x200" src="img/FB-f-Logo__blue_72.png" />
+						<div class="caption">
+							<h3 class="text-center text-primary">
+								60
+							</h3>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="300x200"  class="img-rounded" src="img/Twitter_logo_blue.png" />
+						<div class="caption">
+							<h3 class="text-center text-primary">
+								25
+							</h3>					
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="300x200" src="img/gplus-128[1].png" />
+						<div class="caption">
+							<h3 class="text-center text-primary">
+								30
+							</h3>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	</div>
+</div>
+</body>
+</html>
