@@ -1,30 +1,36 @@
 import httplib2
 
-from flask import render_template, redirect, request, session, url_for, make_response
+import flask
+from flask import render_template, redirect, request, session, url_for, make_response, Flask
 from app import app
 from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
 from apiclient.discovery import build
+
+from DashBoardController import DashBoardController
 
 '''
 	The index function renders the welcome page on request
 '''
 @app.route('/', methods=['GET'])
 def index():
-	if 'credentials' in session:
+	credentials = session.get('credentials')
+	if credentials is not None:
 		return redirect(url_for('dashboard'))
 	
 	return render_template("index.html")
-	
+
 '''
 	The dashboard function renders the dashboard page on request
 	If the user is not logged in, redirect the user back to the home page
 '''
 @app.route('/dashboard',  methods=['GET'])
 def dashboard():
-	if 'credentials' in session:
-		username = getUserName(session['credentials'])
-		return render_template("dashboard.html", username=username)
+	credentials = session.get('credentials')
+	if credentials is not None:
+		username = getUserName(credentials)
+		db_controller = DashBoardController()
+		return render_template("dashboard.html", username=username, controller=db_controller)
 
 	return redirect(url_for('index'))
 
@@ -47,7 +53,8 @@ def login():
 '''
 @app.route('/logout', methods=['GET'])
 def logout():
-	del session['credentials']
+	#flask.session.destroy()
+	session.pop('credentials', None)
 	return redirect(url_for('index')) 
 
 '''
@@ -56,7 +63,9 @@ def logout():
 '''
 @app.route('/oauth2callback')
 def authorization_redirect():
+	#flask.session.regenerate()
 	auth_code = request.args.get('code', None)
+	auth_credentials = None
 
 	if auth_code:
 		auth_flow = constructFlow()
