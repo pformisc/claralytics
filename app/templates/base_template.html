@@ -4,8 +4,8 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
 		<link href ="{{ url_for('static', filename='custom.css') }}">
+		<link href ="{{ url_for('static', filename='style.css') }}">
 		<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -14,12 +14,7 @@
 		<script type="text/javascript" src ="{{ url_for('static', filename='linegraph.js') }}"></script>
 	</head>
 	<body>
-		
-		
-				<div class = "navbar" style="height:50px;width:100%">
-			<div class = "left" style="float:left;height:inherit;">
-				<h4> Google OAuth2.0 with Flask </h4>
-			</div>
+			<div class = "navbar" style="height:50px;width:100%">
 			<div class = "right" style="float:right;height:inherit;">
 				<div id="login_button" style="margin-top:50%">
 					{% if username %}
