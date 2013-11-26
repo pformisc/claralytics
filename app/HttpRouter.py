@@ -29,8 +29,8 @@ def dashboard():
 	credentials = session.get('credentials')
 	if credentials is not None:
 		username = getUserName(credentials)
-		db_controller = DashBoardController()
-		return render_template("dashboard.html", username=username, controller=db_controller)
+		db_controller = DashBoardController(credentials)
+		return render_template("dashboard_new.html", username=username, controller=db_controller)
 
 	return redirect(url_for('index'))
 
@@ -98,3 +98,4 @@ def getUserName(credentials):
 
 	accounts = service.management().accounts().list().execute()
 	return accounts['username']
+
