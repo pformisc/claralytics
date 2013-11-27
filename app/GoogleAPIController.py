@@ -1,4 +1,7 @@
 from AnalyticsUser import AnalyticsUser
+from datetime import date
+
+import simplejson as json
 
 '''
 	This class represents the GoogleAPIController.
@@ -16,6 +19,31 @@ class GoogleAPIController(object):
 		self.service = service
 		self.user = AnalyticsUser(self.service)
 
+	'''
+		Gets the username of the AnalyticsUser
+	'''
 	def get_username(self):
 		return self.user.get_username()
 
+	def query_device_type(self):
+		user_profile_id = self.user.get_primary_profile_id()
+		current_date = date.today()
+		device_metrics = 'ga:visitors'
+		device_dimensions = 'ga:deviceCategory'
+
+		# Execute this query
+		result = self.service.data().ga().get(
+			ids='ga:' + user_profile_id,
+			start_date=date(current_date.year, current_date.month, 1).isoformat(),
+			end_date=current_date.isoformat(),
+			metrics='ga:visitors',
+			dimensions='ga:deviceCategory'
+		).execute()
+
+		device_categories = result.get('rows')
+		device_dict = dict()
+
+		for elem in device_categories:
+			device_dict[elem[0]] = int(elem[1])
+
+		return json.dumps(device_dict, sort_keys=True)

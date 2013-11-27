@@ -1,4 +1,5 @@
 import httplib2
+import json
 
 from GoogleAPIController import GoogleAPIController
 from apiclient.discovery import build
@@ -17,3 +18,6 @@ class DashBoardController(object):
 
 	def display_username(self):
 		return self.gapicontroller.get_username()
+
+	def fetch_device_type(self):
+		return self.gapicontroller.query_device_type()

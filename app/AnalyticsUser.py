@@ -32,7 +32,7 @@ class AnalyticsUser(object):
 	def get_primary_web_properties_id(self):
 		return self.web_properties.get('items')[0].get('id')
 
-	def get_profiles_id(self):
+	def get_primary_profile_id(self):
 		return self.profiles.get('items')[0].get('id')
 
 	def get_username(self):

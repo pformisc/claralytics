@@ -6,7 +6,6 @@ from app import app
 from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
 
-
 from DashBoardController import DashBoardController
 
 '''
@@ -31,8 +30,9 @@ def dashboard():
 
 	if credentials is not None:
 		db_controller = DashBoardController(credentials, httpObj)
-		#username = db_controller.gapicontroller.get_username()
-		return render_template("dashboard_new.html", controller=db_controller)
+		username = db_controller.display_username()
+		#db_controller.gapicontroller.query_device_type()
+		return render_template("dashboard_new.html", username=username, controller=db_controller)
 
 	return redirect(url_for('index'))
 
@@ -55,8 +55,8 @@ def login():
 '''
 @app.route('/logout', methods=['GET'])
 def logout():
-	#flask.session.destroy()
 	session.pop('credentials', None)
+	#flask.session.regenerate()
 	return redirect(url_for('index')) 
 
 '''
@@ -65,7 +65,6 @@ def logout():
 '''
 @app.route('/oauth2callback')
 def authorization_redirect():
-	#flask.session.regenerate()
 	auth_code = request.args.get('code', None)
 	auth_credentials = None
 
@@ -77,6 +76,8 @@ def authorization_redirect():
 			print "Could not exchange code for credentials"
 
 		session['credentials'] = auth_credentials
+
+		flask.session.regenerate()
 
 	return redirect(url_for('dashboard'))
 
