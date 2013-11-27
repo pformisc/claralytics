@@ -1,4 +1,7 @@
-import httplib2
+from AnalyticsUser import AnalyticsUser
+from datetime import date
+
+import simplejson as json
 
 '''
 	This class represents the GoogleAPIController.
@@ -6,17 +9,41 @@ import httplib2
 	to & from the Google Analytics API
 '''
 class GoogleAPIController(object):
-	def __init__(self, credentials):
+
+	'''
+		The constructor for a GoogleAPIController
+		Initializes the credentials & the httpObj attributes
+	'''
+	def __init__(self, service):
 		self.name = "GoogleAPIController"
-		self.credentials = credentials
-		self.httpObj = httplib2.Http()
+		self.service = service
+		self.user = AnalyticsUser(self.service)
 
 	'''
-		Authorizes the specified credentials and returns the user's username
+		Gets the username of the AnalyticsUser
 	'''
-	def getUserName(self):
-		self.httpObj = self.credentials.authorize(httpObj)
-		service = build('analytics', 'v3', http=httpObj)
+	def get_username(self):
+		return self.user.get_username()
 
-		accounts = service.management().accounts().list().execute()
-		return accounts['username']
+	def query_device_type(self):
+		user_profile_id = self.user.get_primary_profile_id()
+		current_date = date.today()
+		device_metrics = 'ga:visitors'
+		device_dimensions = 'ga:deviceCategory'
+
+		# Execute this query
+		result = self.service.data().ga().get(
+			ids='ga:' + user_profile_id,
+			start_date=date(current_date.year, current_date.month, 1).isoformat(),
+			end_date=current_date.isoformat(),
+			metrics='ga:visitors',
+			dimensions='ga:deviceCategory'
+		).execute()
+
+		device_categories = result.get('rows')
+		device_dict = dict()
+
+		for elem in device_categories:
+			device_dict[elem[0]] = int(elem[1])
+
+		return json.dumps(device_dict, sort_keys=True)

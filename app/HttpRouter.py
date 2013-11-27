@@ -5,7 +5,6 @@ from flask import render_template, redirect, request, session, url_for, make_res
 from app import app
 from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
-from apiclient.discovery import build
 
 from DashBoardController import DashBoardController
 
@@ -27,9 +26,12 @@ def index():
 @app.route('/dashboard',  methods=['GET'])
 def dashboard():
 	credentials = session.get('credentials')
+	httpObj = httplib2.Http()
+
 	if credentials is not None:
-		username = getUserName(credentials)
-		db_controller = DashBoardController(credentials)
+		db_controller = DashBoardController(credentials, httpObj)
+		username = db_controller.display_username()
+		#db_controller.gapicontroller.query_device_type()
 		return render_template("dashboard_new.html", username=username, controller=db_controller)
 
 	return redirect(url_for('index'))
@@ -53,8 +55,8 @@ def login():
 '''
 @app.route('/logout', methods=['GET'])
 def logout():
-	#flask.session.destroy()
 	session.pop('credentials', None)
+	#flask.session.regenerate()
 	return redirect(url_for('index')) 
 
 '''
@@ -63,7 +65,6 @@ def logout():
 '''
 @app.route('/oauth2callback')
 def authorization_redirect():
-	#flask.session.regenerate()
 	auth_code = request.args.get('code', None)
 	auth_credentials = None
 
@@ -76,6 +77,8 @@ def authorization_redirect():
 
 		session['credentials'] = auth_credentials
 
+		flask.session.regenerate()
+
 	return redirect(url_for('dashboard'))
 
 '''
@@ -87,15 +90,3 @@ def constructFlow():
 		scope = app.config['SCOPE'],
 		redirect_uri = app.config['REDIRECT_URI'])
 	return flow_obj
-
-'''
-	Authorizes the specified credentials and returns the user's username
-'''
-def getUserName(credentials):
-	httpObj = httplib2.Http()
-	httpObj = credentials.authorize(httpObj)
-	service = build('analytics', 'v3', http=httpObj)
-
-	accounts = service.management().accounts().list().execute()
-	return accounts['username']
-
