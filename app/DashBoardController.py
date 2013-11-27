@@ -1,25 +1,23 @@
 import httplib2
+import json
+
 from GoogleAPIController import GoogleAPIController
+from apiclient.discovery import build
 
 '''
 	This class represents the DashBoardController.
 	Its responsibilities include
 '''
 class DashBoardController(object):
-	def __init__(self, credentials):
-		self.gapicontroller = GoogleAPIController(credentials)
 
-	def get_profile_ID(self):
-		profile_id = "id"
-		return profile_id
+	def __init__(self, credentials, httpObj):
+		self.credentials = credentials
+		self.httpObj = self.credentials.authorize(httpObj)
+		self.service = build('analytics', 'v3', http=self.httpObj)
+		self.gapicontroller = GoogleAPIController(self.service)
 
-'''
-	Authorizes the specified credentials and returns the user's username
-'''
-def getUserName(credentials):
-	httpObj = httplib2.Http()
-	httpObj = credentials.authorize(httpObj)
-	service = build('analytics', 'v3', http=httpObj)
+	def display_username(self):
+		return self.gapicontroller.get_username()
 
-	accounts = service.management().accounts().list().execute()
-	return accounts['username']
+	def fetch_device_type(self):
+		return self.gapicontroller.query_device_type()

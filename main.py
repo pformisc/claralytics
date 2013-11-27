@@ -8,6 +8,6 @@
 #from google.appengine.ext.webapp.util import run_wsgi_app
 from app import app
 
-app.run(debug = True)
+app.run(debug=True)
 
 #run_wsgi_app(app)
