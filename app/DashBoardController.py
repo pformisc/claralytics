@@ -21,3 +21,6 @@ class DashBoardController(object):
 
 	def fetch_device_type(self):
 		return self.gapicontroller.query_device_type()
+
+	def fetch_weekly_visits(self):
+		return self.gapicontroller.query_weekly_visits()

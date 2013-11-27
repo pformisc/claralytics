@@ -25,6 +25,13 @@ class GoogleAPIController(object):
 	def get_username(self):
 		return self.user.get_username()
 
+	'''
+		Queries the Analytics API for the number of visitors per device type.
+		Device categories include:
+		1) Desktop
+		2) Mobile
+		3) Tablet
+	'''
 	def query_device_type(self):
 		user_profile_id = self.user.get_primary_profile_id()
 		current_date = date.today()
@@ -47,3 +54,21 @@ class GoogleAPIController(object):
 			device_dict[elem[0]] = int(elem[1])
 
 		return json.dumps(device_dict, sort_keys=True)
+
+	def query_weekly_visits(self):
+		current_date = date.today()
+		weekly_visits = list()
+
+		day_count = 6
+
+		while day_count >= 0:
+			result = self.service.data().ga().get(
+				ids='ga:' + self.user.get_primary_profile_id(),
+				start_date=date(current_date.year, current_date.month, current_date.day-day_count).isoformat(),
+				end_date=current_date.isoformat(),
+				metrics='ga:visitors'
+			).execute()
+			weekly_visits.append(result.get('rows'))
+			day_count = day_count - 1
+
+		return weekly_visits
