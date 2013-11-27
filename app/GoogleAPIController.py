@@ -1,4 +1,4 @@
-import httplib2
+from AnalyticsUser import AnalyticsUser
 
 '''
 	This class represents the GoogleAPIController.
@@ -6,17 +6,16 @@ import httplib2
 	to & from the Google Analytics API
 '''
 class GoogleAPIController(object):
-	def __init__(self, credentials):
+
+	'''
+		The constructor for a GoogleAPIController
+		Initializes the credentials & the httpObj attributes
+	'''
+	def __init__(self, service):
 		self.name = "GoogleAPIController"
-		self.credentials = credentials
-		self.httpObj = httplib2.Http()
+		self.service = service
+		self.user = AnalyticsUser(self.service)
 
-	'''
-		Authorizes the specified credentials and returns the user's username
-	'''
-	def getUserName(self):
-		self.httpObj = self.credentials.authorize(httpObj)
-		service = build('analytics', 'v3', http=httpObj)
+	def get_username(self):
+		return self.user.get_username()
 
-		accounts = service.management().accounts().list().execute()
-		return accounts['username']
