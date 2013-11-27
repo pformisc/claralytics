@@ -15,8 +15,8 @@
     
         var options = {
           title: 'Hits for The Santa Clara in this month (shown per week)',
-          vAxis: {title: 'Week number',  titleTextStyle: {color: 'red'}},
-		  hAxis: {title: 'Hits on each week',  titleTextStyle: {color: 'red'}},
+          vAxis: {title: 'Week number',  gridlines:{count:0}, titleTextStyle: {color: 'black'}},
+		  hAxis: {title: 'Hits on each week',  gridlines:{count:0}, titleTextStyle: {color: 'black'}},
 		  legend: {position:'none'},
 		  series: {
 				0: {
@@ -44,3 +44,4 @@
 		
 		 ; // Apply formatter to second column
       }
+   
