@@ -1,5 +1,5 @@
 from AnalyticsUser import AnalyticsUser
-from datetime import date
+from datetime import date, timedelta
 
 import simplejson as json
 
@@ -18,6 +18,7 @@ class GoogleAPIController(object):
 		self.name = "GoogleAPIController"
 		self.service = service
 		self.user = AnalyticsUser(self.service)
+		self.current_date = date.today()
 
 	'''
 		Gets the username of the AnalyticsUser
@@ -34,15 +35,14 @@ class GoogleAPIController(object):
 	'''
 	def query_device_type(self):
 		user_profile_id = self.user.get_primary_profile_id()
-		current_date = date.today()
 		device_metrics = 'ga:visitors'
 		device_dimensions = 'ga:deviceCategory'
 
 		# Execute this query
 		result = self.service.data().ga().get(
 			ids='ga:' + user_profile_id,
-			start_date=date(current_date.year, current_date.month, 1).isoformat(),
-			end_date=current_date.isoformat(),
+			start_date=date(self.current_date.year, self.current_date.month, 1).isoformat(),
+			end_date=self.current_date.isoformat(),
 			metrics='ga:visitors',
 			dimensions='ga:deviceCategory'
 		).execute()
@@ -55,20 +55,46 @@ class GoogleAPIController(object):
 
 		return json.dumps(device_dict, sort_keys=True)
 
+	'''
+		Queries the Analytics API for the number of visitors per day.
+		The query is run from the first day of the week (Monday) to the current date
+	'''
 	def query_weekly_visits(self):
-		current_date = date.today()
-		weekly_visits = list()
+		weekly_visits = dict()
 
-		day_count = 6
+		day_count = self.current_date.weekday()
+		while day_count >=0:
+			start_date = self.current_date - timedelta(days=day_count)
+			end_date = start_date + timedelta(days=1)
 
-		while day_count >= 0:
 			result = self.service.data().ga().get(
 				ids='ga:' + self.user.get_primary_profile_id(),
-				start_date=date(current_date.year, current_date.month, current_date.day-day_count).isoformat(),
-				end_date=current_date.isoformat(),
-				metrics='ga:visitors'
+				start_date=start_date.isoformat(),
+				end_date=end_date.isoformat(),
+				metrics='ga:visitors',
 			).execute()
-			weekly_visits.append(result.get('rows'))
-			day_count = day_count - 1
 
-		return weekly_visits
+			weekly_visits[start_date.isoformat()]=int(result.get('rows')[0][0])
+			day_count -= 1
+
+		return json.dumps(weekly_visits, sort_keys=True)
+
+	def query_monthly_visits(self):
+		monthly_visits = dict()
+		
+		start_date = date(self.current_date.year, self.current_date.month, 1)		
+		end_date = self.current_date
+
+		result = self.service.data().ga().get(
+			ids='ga:' + self.user.get_primary_profile_id(),
+			start_date=start_date.isoformat(),
+			end_date=end_date.isoformat(),
+			metrics='ga:visitors',
+			dimensions='ga:nthWeek'
+		).execute()
+		
+		for elem in result.get('rows'):
+			week_num = int(elem[0]) + 1
+			monthly_visits[week_num] = int(elem[1])
+
+		return json.dumps(monthly_visits, sort_keys=True)
