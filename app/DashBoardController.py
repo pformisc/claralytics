@@ -27,3 +27,6 @@ class DashBoardController(object):
 
 	def fetch_monthly_visits(self):
 		return self.gapicontroller.query_monthly_visits()
+
+	def fetch_popular_articles(self):
+		return self.gapicontroller.query_popular_articles()

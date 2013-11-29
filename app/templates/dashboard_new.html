@@ -55,7 +55,7 @@
           // Create and populate the data table.
         var option = {title:"Hits for The Santa Clara in this month (shown per week)",
                      width:500, height:200,
-                     animation: {duration: 2000, easing: 'in',},
+                     animation: {duration: 3000, easing: 'in',},
                      vAxis: {title: "",titleTextStyle: {color: 'red'}},
                      'legend':'none',
                      hAxis: {title: "Hits on each week", minValue:0, maxValue:800,titleTextStyle: {color: 'red'},
@@ -120,17 +120,17 @@
     	data.addRows(weekly_stats);
 
         var options = {
-          title: 'Visitors per day',
+          title: 'Number of Visitors This Week',
 		  'legend':'none',
-		  colors:['#004411'],
+		  colors:['red'],
 		  animation: {duration: 1000, easing: 'out'},
 		  hAxis:
 		  {
-			 format:'E,d',
-			 title:'Days in a week',
-			 gridlines:{ color: 'red'},
-			 slantedText:true,
-			 slantedTextAngle:30,
+			 format:'MMM d',
+			 title:'Date',
+			 gridlines:{count: 7, color: 'transparent'},
+			 slantedText:false,
+			 slantedTextAngle:10,
 			 textStyle:{bold:true},
 			 titleTextStyle: {color: 'red'}
 		  },
@@ -142,7 +142,8 @@
 			 textStyle:{bold:true},
 			 titleTextStyle: {color: 'red'}
 		  },
-		  pointSize:4
+		  pointSize:6,
+		  lineWidth:3
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('panel-465099'));
@@ -196,7 +197,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row clearfix">
+			<!--<div class="row clearfix">
 				<div class="col-md-4 column">
 				</div>
 				<div class="col-md-4 column">
@@ -207,92 +208,37 @@
 				<div class="col-md-4 column">
 					 <button type="button" class="btn btn-sm nextbtn">Next<span class="glyphicon glyphicon-chevron-right"></span></button>
 				</div>
-			</div>  
+			</div> --> 
 			</div>
 		</div>
 		<div class="col-md-6 column">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-eye-open"></span> Most Popular Articles and Categories
+						<span class="glyphicon glyphicon-eye-open"></span> Most Popular Pages This Month
 					</h3>
 				</div>
 				<div class="col-md-12 column">
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
+						<th></th>
 						<th>
-							#
+							Page Title
 						</th>
 						<th>
-							Article
-						</th>
-						<th>
-							Category
+							Views
 						</th>
 					</tr>
 				</thead>
 				<tbody>
+					{% for article, views in controller.fetch_popular_articles() %}
 					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						
+						<td></td>
+						<td>{{ article|e }}</td>
+						<td>{{ views|e }}</td>
 					</tr>
-					<tr class="active">
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							01/04/2012
-						</td>
-						
-					</tr>
-					<tr class="success">
-						<td>
-							2
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							02/04/2012
-						</td>
-						
-					</tr>
-					<tr class="warning">
-						<td>
-							3
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							03/04/2012
-						</td>
-						
-					</tr>
-					<tr class="danger">
-						<td>
-							4
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							04/04/2012
-						</td>
-						
-					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>				

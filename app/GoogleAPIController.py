@@ -10,6 +10,8 @@ import simplejson as json
 '''
 class GoogleAPIController(object):
 
+	custom_months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	
 	'''
 		The constructor for a GoogleAPIController
 		Initializes the credentials & the httpObj attributes
@@ -74,11 +76,15 @@ class GoogleAPIController(object):
 				metrics='ga:visitors',
 			).execute()
 
-			weekly_visits[start_date.isoformat()]=int(result.get('rows')[0][0])
+			cust_month = self.custom_months[start_date.month-1] + ' ' + str(start_date.day)
+			weekly_visits[cust_month]=int(result.get('rows')[0][0])
 			day_count -= 1
 
 		return json.dumps(weekly_visits, sort_keys=True)
-
+	'''
+		Queries the Analytics API for the number of visitors in the current month.
+		The month is partitioned into several weeks and the visitors for each week are reported.
+	'''
 	def query_monthly_visits(self):
 		monthly_visits = dict()
 		
@@ -98,3 +104,30 @@ class GoogleAPIController(object):
 			monthly_visits[week_num] = int(elem[1])
 
 		return json.dumps(monthly_visits, sort_keys=True)
+
+	'''
+		Queries the Analytics API for the top 5 most popular pages viewed in this month.
+	'''	
+	def query_popular_articles(self):
+
+		start_date = date(self.current_date.year, self.current_date.month, 1)		
+		end_date = self.current_date
+
+		pop_articles = list()
+
+		result = self.service.data().ga().get(
+			ids='ga:' + self.user.get_primary_profile_id(),
+			start_date=start_date.isoformat(),
+			end_date=end_date.isoformat(),
+			metrics='ga:pageviews',
+			dimensions='ga:pageTitle',
+			sort='ga:pageviews'
+		).execute()
+
+		res_list = result.get('rows')[-6:-1]
+		res_list.reverse()
+
+		for page in res_list:
+			pop_articles.append([page[0].replace('|', ''), int(page[1])])
+
+		return pop_articles
