@@ -53,15 +53,34 @@
       google.setOnLoadCallback(drawChart);
  	  function drawChart() {
           // Create and populate the data table.
-        var option = {title:"Hits for The Santa Clara in this month (shown per week)",
-                     width:500, height:200,
-                     animation: {duration: 3000, easing: 'in',},
-                     vAxis: {title: "",titleTextStyle: {color: 'red'}},
-                     'legend':'none',
-                     hAxis: {title: "Hits on each week", minValue:0, maxValue:800,titleTextStyle: {color: 'red'},
-           gridlines:{color:'transparent'}},
-                      series: {
-        0: {
+        var option = {
+        	title:"Number of visits this month (shown per week)",
+          	width:500, 
+          	height:200,
+         	animation: {
+         		duration: 3000, 
+         		easing: 'in'
+         	},
+         	vAxis: {
+         		title: "",
+         		titleTextStyle: {
+         			color: 'red'
+         		}
+         	},
+     		'legend':'none',
+             hAxis: {
+             	title: "Hits on each week", 
+             	minValue:0, 
+             	maxValue:800,
+             	titleTextStyle: {
+             		color: 'red'
+             	},
+           	gridlines:{
+           		color:'#D1D0CE'
+           	}
+           },
+          series: {
+        		0: {
                     // set the color to change to
                     color: '009EBF',
                     // don't show this in the legend
@@ -74,9 +93,9 @@
                     // don't show this in the legend
                     visibleInLegend: false,      
                 }
-      }
+  			}
         
-     };
+     	};
 		var monthly_hits = $('#load_monthly_hits').data('mhits');
 
         var data = new google.visualization.DataTable();    
@@ -88,7 +107,7 @@
 
         // Create and draw the visualization.
 
-        var chart = new google.visualization.BarChart(document.getElementById('panel-304865'));
+        var chart = new google.visualization.BarChart(document.getElementById('monthly-hits-panel'));
         chart.draw(data, option);
         var row_index = 0;
         $.each(monthly_hits, function(key, value){
@@ -122,15 +141,14 @@
         var options = {
           title: 'Number of Visitors This Week',
 		  'legend':'none',
-		  colors:['red'],
+		  colors:['#38A660'],
 		  animation: {duration: 1000, easing: 'out'},
 		  hAxis:
 		  {
 			 format:'MMM d',
-			 title:'Date',
+			 title:'',
 			 gridlines:{count: 7, color: 'transparent'},
 			 slantedText:false,
-			 slantedTextAngle:10,
 			 textStyle:{bold:true},
 			 titleTextStyle: {color: 'red'}
 		  },
@@ -138,7 +156,7 @@
 		  {
 			 title:'Number of Hits'	 ,
 			 minValue:0, maxValue:100,
-			 gridlines:{count:5, color:'transparent'},
+			 gridlines:{count:5, color:'#D1D0CE'},
 			 textStyle:{bold:true},
 			 titleTextStyle: {color: 'red'}
 		  },
@@ -146,7 +164,7 @@
 		  lineWidth:3
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('panel-465099'));
+        var chart = new google.visualization.LineChart(document.getElementById('weekly-hits-panel'));
 		chart.draw(data, options);
 		var row_index = 0;
       	$.each(weekly_hits, function(key, value){  		
@@ -159,13 +177,6 @@
 
 <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<h1 class="text-center text-primary" style = "font-family:Gauntlet">
-				Clara-Lytics
-			</h1>
-		</div>
-	</div>
-	<div class="row clearfix">
 		<div class="col-md-6 column">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -176,21 +187,21 @@
 				<div class="tabbable" id="tabs-263782">
 				<ul class="nav nav-tabs">
 					<li class="active actTab">
-						<a href="#panel-465099" data-toggle="tab">Weekly</a>
+						<a href="#weekly-hits-panel" data-toggle="tab">Weekly</a>
 					</li>
 					<li>
-						<a href="#panel-304865" data-toggle="tab">Monthly</a>
+						<a href="#monthly-hits-panel" data-toggle="tab">Monthly</a>
 					</li>
 				</ul>
 				<div class="tab-content graphs">
 					<div id="load_weekly_hits" data-whits="{{controller.fetch_weekly_visits()}}" style="display:none"></div>	
-					<div class="tab-pane active weekly_hits" id="panel-465099" style="width: 500px; height: 200px;">
+					<div class="tab-pane active weekly_hits" id="weekly-hits-panel">
 						<p>
 							hits for a week
 						</p>
 					</div>
 					<div id="load_monthly_hits" data-mhits="{{controller.fetch_monthly_visits()}}" style="display:none"></div>	
-					<div class="tab-pane" id="panel-304865" style="width: 500px; height: 200px;">
+					<div class="tab-pane" id="monthly-hits-panel">
 						<p>
 							hits for a month
 						</p>

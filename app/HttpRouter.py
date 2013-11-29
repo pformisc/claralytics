@@ -30,7 +30,6 @@ def dashboard():
 
 	if credentials is not None:
 		db_controller = DashBoardController(credentials, httpObj)
-		#result = db_controller.fetch_popular_categories()
 		username = db_controller.display_username()
 		return render_template("dashboard_new.html", username=username, controller=db_controller)
 
