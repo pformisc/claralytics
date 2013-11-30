@@ -30,6 +30,7 @@ def dashboard():
 
 	if credentials is not None:
 		db_controller = DashBoardController(credentials, httpObj)
+		db_controller.fetch_social_activities()
 		username = db_controller.display_username()
 		return render_template("dashboard_new.html", username=username, controller=db_controller)
 
