@@ -1,7 +1,4 @@
 /*custom file sheet*/
-
-
-
 .webhitsCol
 {
 	border: 2px solid #ddd;
@@ -26,10 +23,6 @@
 	border-color: #F29F05;
 }
 
-.btn-sm {
-  background-color: #F29F05;
- 
-}
 .lastRow{
 	border: 2px solid #ddd;
 	border-radius: 8px;
@@ -45,7 +38,7 @@ h1{
 
 
 .actTab{
-background-color: #F29F05;
+/*background-color: #F29F05;*/
 	
 }
 

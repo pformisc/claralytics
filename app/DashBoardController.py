@@ -30,3 +30,9 @@ class DashBoardController(object):
 
 	def fetch_popular_articles(self):
 		return self.gapicontroller.query_popular_articles()
+
+	def fetch_geo_network(self):
+		return self.gapicontroller.query_geo_network()
+
+	def fetch_social_activities(self):
+		return self.gapicontroller.query_google_plus_actions()

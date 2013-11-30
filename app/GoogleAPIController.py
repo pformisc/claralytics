@@ -131,3 +131,33 @@ class GoogleAPIController(object):
 			pop_articles.append([page[0].replace('|', ''), int(page[1])])
 
 		return pop_articles
+
+	def query_geo_network(self):
+		start_date = date(self.current_date.year, self.current_date.month, 1)		
+		end_date = self.current_date
+
+		result = self.service.data().ga().get(
+			ids='ga:' + self.user.get_primary_profile_id(),
+			start_date=start_date.isoformat(),
+			end_date=end_date.isoformat(),
+			metrics='ga:visitors',
+			dimensions='ga:country, ga:region',
+			sort='ga:country'
+		).execute()
+
+		res_list = [elem for elem in result.get('rows') if elem[0] == 'United States']
+		return res_list
+
+	def query_google_plus_actions(self):
+		start_date = date(self.current_date.year, self.current_date.month, 1)		
+		end_date = self.current_date
+
+		result = self.service.data().ga().get(
+			ids='ga:' + self.user.get_primary_profile_id(),
+			start_date=start_date.isoformat(),
+			end_date=end_date.isoformat(),
+			metrics='ga:socialActivities'
+		).execute()
+
+		print result.get('rows')
+		return 1 
