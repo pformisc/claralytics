@@ -6,27 +6,28 @@
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
-			<h3 class="text-center text-primary">
+
+			<h1 class="text-center text-primary" style = "font-family:Gauntlet">
 				Clara-Lytics
-			</h3>
+			</h1>
 		</div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-7 column">
+		<div class="col-md-8 webhitsCol">
 			<h3 class="text-info">
 				Number of website Hits
 			</h3>
 			<div class="tabbable" id="tabs-263782">
 				<ul class="nav nav-tabs">
-					<li class="active">
+					<li class="active actTab">
 						<a href="#panel-465099" data-toggle="tab">Weekly</a>
 					</li>
 					<li>
 						<a href="#panel-304865" data-toggle="tab">Monthly</a>
 					</li>
 				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="panel-465099">
+				<div class="tab-content graphs">
+					<div class="tab-pane active linegr" id="panel-465099">
 						<p>
 							hits for a week
 						</p>
@@ -40,22 +41,20 @@
 			</div>
 			<div class="row clearfix">
 				<div class="col-md-12 column">
-					<div id="content" style="height:120px;width:400px;float:left; border-top: 1px #ddd;">
-						<p>graph goes here</p>
-					</div>
+					
 				</div>
 			</div>
 			<div class="row clearfix">
 				<div class="col-md-6 column">
-					 <button type="button" class="btn btn-sm">&lt;&lt;Prev</button>
+					 <button type="button" class="btn btn-sm ">&lt;&lt;Prev</button>
 				</div>
 				<div class="col-md-6 column">
-					 <button type="button" class="btn btn-sm">Next&gt;&gt;</button>
+					 <button type="button" class="btn btn-sm nextbtn">Next&gt;&gt;</button>
 				</div>
-			</div>
+			</div> 
 		</div>
 
-		<div class="col-md-offset-1 col-md-4 column">
+		<div class="col-md-4 popCategories ">
 			<h3 class="text-center text-info">
 				Most popular categories
 			</h3>
@@ -78,17 +77,17 @@
 						Panel title
 					</h3>
 				</div>
-				<div class="panel-body">
+				<!--<div class="panel-body">
 					Panel content
 				</div>
 				<div class="panel-footer">
 					Panel footer
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-6 column">
+		<div class="col-md-6 secondRow">
 			<h3 class="text-left text-info">
 				Geographical User Base
 			</h3>
@@ -100,35 +99,89 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6 column">
+		<div class="col-md-6 secondRow">
 			<h3 class="text-left text-info">
 				Device Type
 			</h3>
 			<div class="row clearfix">
-				<div class="col-md-12 column">
-					<div id="content" style="height:200px;width:400px;float:left;">
-						<p>pi chart goes here</p>
+				<div class="col-md-12">
+					<div id = "pie" >
+						
+						
+					</div>
+					<!--<div id="content" style="height:200px;width:400px;float:left;">
+						<p>pi chart goes here</p>		
+					</div>-->
+					
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 lastRow">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="300x200" src="img/fbNewLike.png" />
+						<div class="caption">
+							<h3>
+								Thumbnail label
+							</h3>
+							<p>
+								Likes : number
+							</p>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="150x100"  class="img-rounded" src="img/twitterbuttonbig.png" />
+						<div class="caption">
+							<h3>
+								Thumbnail label
+							</h3>
+							<p>
+								Tweets : Number
+							</p>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="300x200" src="img/google-plus.jpg" />
+						<div class="caption">
+							<h3>
+								Thumbnail label
+							</h3>
+							<p>
+								+1s
+							</p>
+							<!--<p>
+								<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+							</p>-->
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row clearfix">
+</div>
+	<!--<div class="row clearfix">
 		<div class="col-md-4 column">
-			<div class="row clearfix">
-				<div class="col-md-6 column">
-					<img alt="140x140" src="http://lorempixel.com/140/140/">
-				</div>
-				<div class="col-md-6 column">
-				</div>
-			</div>
+			<img alt="140x140" src="img/fbNewLike.png">
+			<!--<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>--> 
+		<!--</div>
+		<div class="col-md-4 column">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-size="large" >Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 		</div>
 		<div class="col-md-4 column">
-			<img alt="140x140" src="http://lorempixel.com/140/140/">
+			<img alt="140x140" src="img/google-plus.jpg">
 		</div>
-		<div class="col-md-4 column">
-			<img alt="140x140" src="http://lorempixel.com/140/140/">
-		</div>
-	</div>
+	</div>-->
 </div>
 {% endblock %}

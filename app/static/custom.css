@@ -1,0 +1,51 @@
+/*custom file sheet*/
+
+
+
+.webhitsCol
+{
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	border-color: #F29F05;
+	padding: 0 15px;
+
+
+}
+
+.popCategories
+{
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	border-color: #F29F05;
+}
+
+.secondRow
+{
+	border: 2px solid #ddd;
+	border-radius: 8px;	
+	border-color: #F29F05;
+}
+
+.btn-sm {
+  background-color: #F29F05;
+ 
+}
+.lastRow{
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	border-color: #F29F05;
+}
+
+@font-face { font-family: Gauntlet; src: url('../GauntletClassic_TB.otf'); } 
+@font-face { font-family: Gauntlet; font-weight: bold; src: url('../GauntletClassic_TB.otf');}
+
+h1{
+	font-family:Gauntlet;
+}
+
+
+.actTab{
+background-color: #F29F05;
+	
+}
+

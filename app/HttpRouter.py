@@ -1,30 +1,37 @@
 import httplib2
 
-from flask import render_template, redirect, request, session, url_for, make_response
+import flask
+from flask import render_template, redirect, request, session, url_for, make_response, Flask
 from app import app
 from oauth2client.client import OAuth2WebServerFlow
 from oauth2client.client import FlowExchangeError
-from apiclient.discovery import build
+
+from DashBoardController import DashBoardController
 
 '''
 	The index function renders the welcome page on request
 '''
 @app.route('/', methods=['GET'])
 def index():
-	if 'credentials' in session:
+	credentials = session.get('credentials')
+	if credentials is not None:
 		return redirect(url_for('dashboard'))
 	
 	return render_template("index.html")
-	
+
 '''
 	The dashboard function renders the dashboard page on request
 	If the user is not logged in, redirect the user back to the home page
 '''
 @app.route('/dashboard',  methods=['GET'])
 def dashboard():
-	if 'credentials' in session:
-		username = getUserName(session['credentials'])
-		return render_template("dashboard.html", username=username)
+	credentials = session.get('credentials')
+	httpObj = httplib2.Http()
+
+	if credentials is not None:
+		db_controller = DashBoardController(credentials, httpObj)
+		username = db_controller.display_username()
+		return render_template("dashboard_new.html", username=username, controller=db_controller)
 
 	return redirect(url_for('index'))
 
@@ -47,7 +54,8 @@ def login():
 '''
 @app.route('/logout', methods=['GET'])
 def logout():
-	del session['credentials']
+	session.pop('credentials', None)
+	#flask.session.regenerate()
 	return redirect(url_for('index')) 
 
 '''
@@ -57,6 +65,7 @@ def logout():
 @app.route('/oauth2callback')
 def authorization_redirect():
 	auth_code = request.args.get('code', None)
+	auth_credentials = None
 
 	if auth_code:
 		auth_flow = constructFlow()
@@ -66,6 +75,8 @@ def authorization_redirect():
 			print "Could not exchange code for credentials"
 
 		session['credentials'] = auth_credentials
+
+		flask.session.regenerate()
 
 	return redirect(url_for('dashboard'))
 
@@ -78,14 +89,3 @@ def constructFlow():
 		scope = app.config['SCOPE'],
 		redirect_uri = app.config['REDIRECT_URI'])
 	return flow_obj
-
-'''
-	Authorizes the specified credentials and returns the user's username
-'''
-def getUserName(credentials):
-	httpObj = httplib2.Http()
-	httpObj = credentials.authorize(httpObj)
-	service = build('analytics', 'v3', http=httpObj)
-
-	accounts = service.management().accounts().list().execute()
-	return accounts['username']

@@ -1,0 +1,72 @@
+@font-face { 
+  font-family: Gauntlet;
+  src: url('GauntletClassic_TB.ttf'); 
+} 
+
+.panel-title {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.btn-sm {
+  	background-color: #80BF34;
+}
+
+.lastRow{
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	border-color: #428BCA;
+}
+
+.panel-info{
+  background: #D8ECCB;
+}
+
+.navbar{
+  height:70px;
+  width: 100%;
+  background-color: #428bca;
+  border-radius: 0px;
+}
+
+.nav-wrapper{
+  padding-top: 10px;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
+.app-header{
+  margin-top: 5%;
+  font-family: Gauntlet, Helvetica;
+  color: white;
+}
+
+#welcome-msg{
+  color: white;
+  font-family: Gauntlet;
+  font-size: 15px;
+}
+
+#login_button a{
+  float:right;
+  color: white;
+  font-family: Gauntlet;
+  font-size: 20px;
+}
+
+/* 
+  Styles for graphs are defined below
+*/
+
+#weekly-hits-panel{
+  width: 525px; 
+  height: 200px;
+  margin-left:2.5%;
+}
+
+#monthly-hits-panel{
+  width: 525px; 
+  height: 200px;
+  margin-left:2.5%;
+}
