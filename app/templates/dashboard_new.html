@@ -85,7 +85,7 @@
           series: {
         		0: {
                     // set the color to change to
-                    color: '009EBF',
+                    color: '80BF34',
                     // don't show this in the legend
                     visibleInLegend: false,       
           
@@ -144,7 +144,7 @@
         var options = {
           title: 'Number of Visitors This Week',
 		  'legend':'none',
-		  colors:['#38A660'],
+		  colors:['#80BF34'],
 		  animation: {duration: 1000, easing: 'out'},
 		  hAxis:
 		  {
@@ -177,7 +177,33 @@
       	chart.draw(data, options);
 	}
 </script>
-
+<div class = "navbar navbar-default">
+	<div class="nav-wrapper">
+		<div class="left" style="float:left;height:inherit;">
+			<h1 class="app-header text-center text-primary">
+				ClaraLytics
+			</h1>
+		</div>
+		<div class = "right" style="float:right;height:inherit">
+			<div id="login_button">
+				{% if username %}
+					<!--<span class="welcome-msg">Welcome! {{ username }}</span>-->
+				  	<button type="button" class="btn btn-default dropdown-toggle glyphicon glyphicon-user user-icon" data-toggle="dropdown">
+				  	<span class="caret"></span>
+						</button>
+					<ul class="dropdown-menu pull-right user-menu" role="menu">
+					    <li class="welcome-msg">Welcome! {{ username }}</li>
+					    <li class="login-button"><a class="logout-btn btn-sm btn-primary" href="/logout" role="button">Logout</a></li>
+					 </ul>
+					<br>
+					<!--<a href="/logout"> Logout </a>-->
+				{% else %}
+					<a href="/login"> Login </a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-6 column">
@@ -387,7 +413,7 @@
 				<div id="load_device_data" data-device="{{controller.fetch_device_type()}}" style="display:none"></div>	
 				<div class="row clearfix">
 					<div class="col-md-12">
-						<div id = "pie">	
+						<div id = "pie" style="height:400;width:400">	
 						</div>
 					</div>
 				</div>
@@ -396,45 +422,66 @@
 		</div>
 	</div>
 	<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 lastRow">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="thumbnail">
-						<img alt="300x200" src="{{ url_for('static', filename='FB-f-Logo__blue_72.png') }}" />
-						<div class="caption">
-							<h3 class="text-center text-primary">
-								60
-							</h3>
+	<!-- new stuff -->
+		<div class="row clearfix">
+		<div class="col-md-12 column">
+			
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						Social Media Presence
+					</h3>
+				</div>
+				<div class="panel-body">
+				
+				<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="row clearfix">
+					<div class="col-md-4 column">
+						<div class="row clearfix">
+							<div class="col-md-6 column">
+								<img alt="300x200" style ="float:right"src="{{ url_for('static', filename='FB-f-Logo__blue_72.png') }}" />
+							</div>
+							<div class="col-md-6 column">							
+								<h2 class="text-center text-primary" style = "float:left">
+									30
+								</h2>						
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 column">
+						<div class="row clearfix">
+							<div class="col-md-6 column">
+								<img alt="300x200" class="img-rounded" style ="float:right" src="{{ url_for('static', filename='Twitter_logo_blue.png') }}" />
+							</div>
+							<div class="col-md-6 column">							
+								<h2 class="text-center text-primary" style = "float:left">
+									30
+								</h2>						
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 column">
+						<div class="row clearfix">
+							<div class="col-md-6 column">
+								<img alt="300x200" style ="float:right" src="{{ url_for('static', filename='gplus-128[1].png') }}" />
+							</div>
+							<div class="col-md-6 column">
+								<h2 class="text-center text-primary" style = "float:left">
+									30
+								</h2>
 							
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="thumbnail">
-						<img alt="300x200" class="img-rounded" src="{{ url_for('static', filename='Twitter_logo_blue.png') }}" />
-						<div class="caption">
-							<h3 class="text-center text-primary">
-								25
-							</h3>					
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="thumbnail">
-						<img alt="300x200" src="{{ url_for('static', filename='gplus-128[1].png') }}" />
-						<div class="caption">
-							<h3 class="text-center text-primary">
-								30
-							</h3>
-						
+							
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
+						
+				</div>
+					
+			</div>
 	</div>
 </div>
 {% endblock %}
