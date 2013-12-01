@@ -1,9 +1,8 @@
 {% extends "base_template.html" %} 
 {% block content %}
- <script type="text/javascript">     
+ <script type="text/javascript"> 
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
-
       function drawChart() {
 
       	var device_items = []
@@ -266,6 +265,7 @@
 					</h3>
 				</div>
 				<div class="panel-body">
+				<div id="geo_hits" data-geo="{{ controller.fetch_geo_network() }}" style="display:none"></div>
 					Panel content
 				</div>
 				<div class="panel-footer">

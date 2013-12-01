@@ -88,7 +88,7 @@
 
 .user-menu{
   width: 250px;
-  height: 75px;
+  height: 5em;
   margin-top:-1.5%;
   border-radius: 0px;
 }
@@ -99,14 +99,13 @@
 
 .welcome-msg{
   font-family: Gauntlet, Helvetica;
-  font-size: 12pt;
+  font-size: 10pt;
   font-weight: 600;
 }
 
 .logout-btn{
   margin-right: 2%;
-  margin-top: 2px;
-  border-radius: 0px;  
+  margin-top: 0.5%;  
 }
 
 .nav-buttons{
