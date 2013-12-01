@@ -29,16 +29,6 @@
 	border-color: #F29F05;
 }
 
-@font-face { font-family: Gauntlet; src: url('../GauntletClassic_TB.otf'); } 
-@font-face { font-family: Gauntlet; font-weight: bold; src: url('../GauntletClassic_TB.otf');}
-
 h1{
 	font-family:Gauntlet;
 }
-
-
-.actTab{
-/*background-color: #F29F05;*/
-	
-}
-

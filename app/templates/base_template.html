@@ -12,33 +12,6 @@
 		<script src="http://d3js.org/d3.v2.js"></script>
 	</head>
 	<body>
-		<div class = "navbar navbar-default">
-			<div class="nav-wrapper">
-				<div class="left" style="float:left;height:inherit;">
-					<h1 class="app-header text-center text-primary">
-						ClaraLytics
-					</h1>
-				</div>
-				<div class = "right" style="float:right;height:inherit">
-					<div id="login_button">
-						{% if username %}
-							<!--<span class="welcome-msg">Welcome! {{ username }}</span>-->
-						  	<button type="button" class="btn btn-default dropdown-toggle glyphicon glyphicon-user user-icon" data-toggle="dropdown">
-						  	<span class="caret"></span>
-  							</button>
-							<ul class="dropdown-menu pull-right user-menu" role="menu">
-							    <li class="welcome-msg">Welcome! {{ username }}</li>
-							    <li class="login-button"><a class="logout-btn btn btn-primary" href="/logout" role="button">Logout</a></li>
-							 </ul>
-							<br>
-							<!--<a href="/logout"> Logout </a>-->
-						{% else %}
-							<a href="/login"> Login </a>
-						{% endif %}
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="content">
 		{% block content %}{% endblock %}
 		</div>

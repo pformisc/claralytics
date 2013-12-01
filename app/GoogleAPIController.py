@@ -146,7 +146,18 @@ class GoogleAPIController(object):
 		).execute()
 
 		res_list = [elem for elem in result.get('rows') if elem[0] == 'United States']
-		return res_list
+
+		geo_network = dict()
+
+		for elem in res_list:
+			if elem[1] != '(not set)' or elem[1] != 'Hawaii':
+				state = 'Alaska'
+			elif elem[1] == 'Hawaii':
+				state = 'Hawaii'
+			else:
+				geo_network[elem[1]] = int(elem[2])
+
+		return json.dumps(geo_network, sort_keys=True)
 
 	def query_google_plus_actions(self):
 		start_date = date(self.current_date.year, self.current_date.month, 1)		
@@ -156,7 +167,7 @@ class GoogleAPIController(object):
 			ids='ga:' + self.user.get_primary_profile_id(),
 			start_date=start_date.isoformat(),
 			end_date=end_date.isoformat(),
-			metrics='ga:socialActivities'
+			metrics='ga:socialInteractions'
 		).execute()
 
 		print result.get('rows')
