@@ -1,4 +1,4 @@
-{% extends "base_template.html" %} 
+ {% extends "base_template.html" %} 
 {% block content %}
  <script type="text/javascript" 
  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNLMXrCM_281yiFV5-RKedAxhKEB-frvo&sensor=false"></script>
@@ -132,8 +132,8 @@
       	var weekly_stats = []
 		var weekly_hits = $('#load_weekly_hits').data('whits');
 
-      	$.each(weekly_hits, function(key, value){  		
-      		weekly_stats.push([key, 0]);
+      	$.each(weekly_hits, function(key, value){
+      		weekly_stats.push([value[0], 0]);
       	});
 
 		var data = new google.visualization.DataTable();
@@ -171,7 +171,7 @@
 		chart.draw(data, options);
 		var row_index = 0;
       	$.each(weekly_hits, function(key, value){  		
-      		data.setValue(row_index, 1, value);
+      		data.setValue(row_index, 1, value[1]);
       		row_index++;
       	});
       	chart.draw(data, options);
@@ -295,41 +295,38 @@
 					</h3>
 				</div>
 				<div class="panel-body">
-				<div id="geo_hits" data-geo="{{ controller.fetch_geo_network() }}" style="display:none"></div>
+				<div id="geo_hits" data-geo="{{controller.fetch_geo_network()}}" style="display:none"></div>
 					Panel content
 				</div>
 				<div class="panel-body" id="Geomap" style="width: 700px; height: 400px">
-         
-					
-				
                 <script type="text/javascript"> 
 				var source="{{url_for('static',filename='MapCoordinates.json')}}";
-	  var minZoomLevel = 4;
-	   var maxZoomLevel=6;
-      var myOptions = { 
-	  mapTypeId: google.maps.MapTypeId.ROADMAP, 
-	  center: new google.maps.LatLng(38.55547456,-95.664999),
-	  zoom:minZoomLevel,
-	  scaleControl:false,
-	   panControl: false,
-	   width:450,
-	   height:400,
-	   zoomControl:true,
-	   zoomControlOptions: {
-		   style: google.maps.ZoomControlStyle.DEFAULT},
-	   overviewMapControl:false
-	   };
+			  var minZoomLevel = 4;
+			   var maxZoomLevel=6;
+		      var myOptions = { 
+			  mapTypeId: google.maps.MapTypeId.ROADMAP, 
+			  center: new google.maps.LatLng(38.55547456,-95.664999),
+			  zoom:minZoomLevel,
+			  scaleControl:false,
+			   panControl: false,
+			   width:450,
+			   height:400,
+			   zoomControl:true,
+			   zoomControlOptions: {
+				   style: google.maps.ZoomControlStyle.DEFAULT},
+			   overviewMapControl:false
+			   };
 	   
 	  
-      var map = new google.maps.Map(document.getElementById('Geomap'), myOptions);
+		      var map = new google.maps.Map(document.getElementById('Geomap'), myOptions);
+			  
+			   var strictBounds = new google.maps.LatLngBounds(
+		     new google.maps.LatLng(28.70, -127.50), 
+		     new google.maps.LatLng(48.85, -55.90)
+		   );
 	  
-	   var strictBounds = new google.maps.LatLngBounds(
-     new google.maps.LatLng(28.70, -127.50), 
-     new google.maps.LatLng(48.85, -55.90)
-   );
-	  
-	  google.maps.event.addListener(map, 'dragend', function() {
-     if (strictBounds.contains(map.getCenter())) return;
+		  google.maps.event.addListener(map, 'dragend', function() {
+	     if (strictBounds.contains(map.getCenter())) return;
 
      // We're out of bounds - Move the map back within the bounds
 
@@ -440,7 +437,7 @@
 					<div class="col-md-4 column">
 						<div class="row clearfix">
 							<div class="col-md-6 column">
-								<img alt="300x200" style ="float:right"src="{{ url_for('static', filename='FB-f-Logo__blue_72.png') }}" />
+								<img alt="300x200" style ="float:right"src="{{ url_for('static', filename='fb_logo.png') }}" />
 							</div>
 							<div class="col-md-6 column">							
 								<h2 class="text-center text-primary" style = "float:left">
@@ -452,7 +449,7 @@
 					<div class="col-md-4 column">
 						<div class="row clearfix">
 							<div class="col-md-6 column">
-								<img alt="300x200" class="img-rounded" style ="float:right" src="{{ url_for('static', filename='Twitter_logo_blue.png') }}" />
+								<img alt="300x200" class="img-rounded" style ="float:right" src="{{ url_for('static', filename='twitter_logo.png') }}" />
 							</div>
 							<div class="col-md-6 column">							
 								<h2 class="text-center text-primary" style = "float:left">
@@ -464,7 +461,7 @@
 					<div class="col-md-4 column">
 						<div class="row clearfix">
 							<div class="col-md-6 column">
-								<img alt="300x200" style ="float:right" src="{{ url_for('static', filename='gplus-128[1].png') }}" />
+								<img alt="300x200" style ="float:right" src="{{ url_for('static', filename='gplus_logo.png') }}" />
 							</div>
 							<div class="col-md-6 column">
 								<h2 class="text-center text-primary" style = "float:left">

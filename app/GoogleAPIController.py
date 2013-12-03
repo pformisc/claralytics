@@ -62,7 +62,7 @@ class GoogleAPIController(object):
 		The query is run from the first day of the week (Monday) to the current date
 	'''
 	def query_weekly_visits(self):
-		weekly_visits = dict()
+		weekly_visits = list()
 
 		day_count = self.current_date.weekday()
 		while day_count >=0:
@@ -77,10 +77,11 @@ class GoogleAPIController(object):
 			).execute()
 
 			cust_month = self.custom_months[start_date.month-1] + ' ' + str(start_date.day)
-			weekly_visits[cust_month]=int(result.get('rows')[0][0])
+			weekly_visits.append([cust_month, int(result.get('rows')[0][0])])
 			day_count -= 1
 
 		return json.dumps(weekly_visits, sort_keys=True)
+
 	'''
 		Queries the Analytics API for the number of visitors in the current month.
 		The month is partitioned into several weeks and the visitors for each week are reported.
@@ -124,6 +125,7 @@ class GoogleAPIController(object):
 			sort='ga:pageviews'
 		).execute()
 
+
 		res_list = result.get('rows')[-6:-1]
 		res_list.reverse()
 
@@ -134,7 +136,7 @@ class GoogleAPIController(object):
 
 	def query_geo_network(self):
 		start_date = date(self.current_date.year, self.current_date.month, 1)		
-		end_date = self.current_date
+		end_date = self.current_date + timedelta(days=1)
 
 		result = self.service.data().ga().get(
 			ids='ga:' + self.user.get_primary_profile_id(),
@@ -150,12 +152,9 @@ class GoogleAPIController(object):
 		geo_network = dict()
 
 		for elem in res_list:
-			if elem[1] != '(not set)' or elem[1] != 'Hawaii':
-				state = 'Alaska'
-			elif elem[1] == 'Hawaii':
-				state = 'Hawaii'
-			else:
-				geo_network[elem[1]] = int(elem[2])
+			if elem[1] != '(not set)':
+				if elem[1] != 'Hawaii':
+					geo_network[elem[1]] = int(elem[2])
 
 		return json.dumps(geo_network, sort_keys=True)
 
@@ -170,5 +169,4 @@ class GoogleAPIController(object):
 			metrics='ga:socialInteractions'
 		).execute()
 
-		print result.get('rows')
 		return 1 
