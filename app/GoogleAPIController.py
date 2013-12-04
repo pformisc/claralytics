@@ -76,8 +76,9 @@ class GoogleAPIController(object):
 				metrics='ga:visitors',
 			).execute()
 
-			cust_month = self.custom_months[start_date.month-1] + ' ' + str(start_date.day)
-			weekly_visits.append([cust_month, int(result.get('rows')[0][0])])
+			if result.get('rows') is not None:
+				cust_month = self.custom_months[start_date.month-1] + ' ' + str(start_date.day)
+				weekly_visits.append([cust_month, int(result.get('rows')[0][0])])
 			day_count -= 1
 
 		return json.dumps(weekly_visits, sort_keys=True)
