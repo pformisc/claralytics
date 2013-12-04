@@ -268,13 +268,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for article, views in controller.fetch_popular_articles() %}
-					<tr>
-						<td></td>
-						<td>{{ article|e }}</td>
-						<td>{{ views|e }}</td>
-					</tr>
-					{% endfor %}
+					{% if controller.fetch_popular_articles() %}
+						{% for article, views in controller.fetch_popular_articles() %}
+						<tr>
+							<td></td>
+							<td>{{ article|e }}</td>
+							<td>{{ views|e }}</td>
+						</tr>
+						{% endfor %}
+					{% endif %}
 				</tbody>
 			</table>
 		</div>				

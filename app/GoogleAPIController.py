@@ -39,6 +39,7 @@ class GoogleAPIController(object):
 		user_profile_id = self.user.get_primary_profile_id()
 		device_metrics = 'ga:visitors'
 		device_dimensions = 'ga:deviceCategory'
+		device_dict = dict()
 
 		# Execute this query
 		result = self.service.data().ga().get(
@@ -50,10 +51,9 @@ class GoogleAPIController(object):
 		).execute()
 
 		device_categories = result.get('rows')
-		device_dict = dict()
-
-		for elem in device_categories:
-			device_dict[elem[0]] = int(elem[1])
+		if device_categories is not None:
+			for elem in device_categories:
+				device_dict[elem[0]] = int(elem[1])
 
 		return json.dumps(device_dict, sort_keys=True)
 
@@ -126,18 +126,19 @@ class GoogleAPIController(object):
 			sort='ga:pageviews'
 		).execute()
 
+		if result.get('rows') is not None:
+			res_list = result.get('rows')[-6:-1]
+			res_list.reverse()
 
-		res_list = result.get('rows')[-6:-1]
-		res_list.reverse()
-
-		for page in res_list:
-			pop_articles.append([page[0].replace('|', ''), int(page[1])])
+			for page in res_list:
+				pop_articles.append([page[0].replace('|', ''), int(page[1])])
 
 		return pop_articles
 
 	def query_geo_network(self):
 		start_date = date(self.current_date.year, self.current_date.month, 1)		
 		end_date = self.current_date + timedelta(days=1)
+		geo_network = dict()
 
 		result = self.service.data().ga().get(
 			ids='ga:' + self.user.get_primary_profile_id(),
@@ -148,14 +149,15 @@ class GoogleAPIController(object):
 			sort='ga:country'
 		).execute()
 
-		res_list = [elem for elem in result.get('rows') if elem[0] == 'United States']
+		if result.get('rows') is not None:
+			res_list = [elem for elem in result.get('rows') if elem[0] == 'United States']
 
-		geo_network = dict()
+			
 
-		for elem in res_list:
-			if elem[1] != '(not set)':
-				if elem[1] != 'Hawaii':
-					geo_network[elem[1]] = int(elem[2])
+			for elem in res_list:
+				if elem[1] != '(not set)':
+					if elem[1] != 'Hawaii':
+						geo_network[elem[1]] = int(elem[2])
 
 		return json.dumps(geo_network, sort_keys=True)
 
