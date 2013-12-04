@@ -300,7 +300,15 @@
 				</div>
 				<div class="panel-body" id="Geomap" style="width: 700px; height: 400px">
                 <script type="text/javascript"> 
+				var geo_data = $('#geo_hits').data('geo');
+				var geo_items = [];
+				$.each(geo_data, function(key, value){
+      				geo_items.push([key, value]);
+					});
+					console.log(geo_items);
+				
 				var source="{{url_for('static',filename='MapCoordinates.json')}}";
+				
 			  var minZoomLevel = 4;
 			   var maxZoomLevel=6;
 		      var myOptions = { 
@@ -356,17 +364,26 @@
      $(document).ready(function() {
         $.getJSON(source, function(info) {
          for (var i = 0; i <= info.Values.length-1; i++) {
+			 for(var j=0;j<=geo_items.length -1;j++)
+			 {
+			 if(info.Values[i]['STATE'].toUpperCase()==geo_items[j][0].toUpperCase())
+			 {
+				 
 			 
             var latLng = new google.maps.LatLng(info.Values[i]['LATITUDE'],info.Values[i]['LONGITUDE']); 
-            var marker=createMarker(latLng,info.Values[i]['STATE']);
+			var title="STATE:"+info.Values[i]['STATE'];
+            var marker=createMarker(latLng,info.Values[i]['STATE'],geo_items[j][1]);
+			
+			 }
 			
 		 }
-		  marker.setMap(map);
+		 }
+		
 		   });
 		});
         
 		
-		function createMarker(pos,t)
+		function createMarker(pos,t,value)
 		{
 			
 				var marker = new google.maps.Marker({
@@ -374,7 +391,8 @@
 				map:map,
 				draggable:false,
 				animation: google.maps.Animation.DROP,
-                title:t,
+               // title:t,
+				zIndex:5000,
 				icon: image
 				 });
 				 google.maps.event.addListener(marker, 'click',function()
@@ -389,6 +407,12 @@
  			  		}
 					 
 				 });
+				 var contentString = '<div  style="font-size:15px" id="content"><div id="state" style="padding:0;"><p><b>State:</b></p><span style="color:#008080;"><b>'+t+'</b></p></div><div id="userbase" style="padding:0;"><p><b>UserBase:</b></p><span style="color:#008080;"><b>'+value+'</b></p></div></div>';
+				 var infowindow = new google.maps.InfoWindow({
+      				content: contentString });
+				  google.maps.event.addListener(marker, 'click', function() {
+   					 infowindow.open(map,marker);
+					 });
 				return marker;
 		}
 		
