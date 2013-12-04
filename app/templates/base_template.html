@@ -4,15 +4,13 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='custom.css') }}">
 		<link rel=stylesheet type=text/css href ="{{ url_for('static', filename='style.css') }}">
 		<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-		<script src="http://d3js.org/d3.v2.js"></script>
 	</head>
-	<body style="width: 100%;border:2px solid orange;">
-		<div class="content" style="width:100%; border:2px solid blue;">
+	<body>
+		<div class="main-wrapper">
 		{% block content %}{% endblock %}
 		</div>
 	</body>

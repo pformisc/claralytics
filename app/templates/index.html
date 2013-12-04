@@ -1,73 +1,49 @@
 {% extends "base_template.html" %} 
 {% block content %}
-	<div class="container">
-	<div class="row clearfix">
-		<div class="col-md-12 column">
-			<div class="jumbotron well landingTitle">
-				<h1 class ="projTitle" >
-					Clara-Lytics
-				</h1>
-				<p>
-					A Web Analytics DashBoard
-				</p>
-				
+<div class="clearfix">
+	<div class="jumbotron landingTitle">
+			<div class="landing-text">
+					<h1>ClaraLytics</h1>
+					<p> Web Analytics Made Simple</p>
 			</div>
-		</div>
+			<div class="login-button">
+				<a href="/login" class="btn btn-lg btn-primary btn-block" role ="button"> Sign In With Your Google Account </a>
+			</div>
 	</div>
-	<div class="row clearfix">
-		<div class="col-md-2 column">
-		</div>
-		<div class="col-md-6 column">
-			<h2>
-				
-			</h2>
-			<p>
-				A Web Analytics Dashboard
-			</p>
-			<p>
-				<!--<a class="btn" href="#">View details »</a>-->
-				<!--<a href="/login"> Login </a>-->
-				<a href="/login" class="btn btn-lg btn-primary btn-block" role ="button"> Login with Google Account </a>
-			<!--</p> <button type="button" class="btn btn-lg btn-primary btn-block">Login with Google Account</button>-->
-		</div>
-		<div class="col-md-4 column">
-		</div>
-	</div>
-	<div class="row clearfix">
-		<div class="col-md-6 column">
-		</div>
-		<div class="col-md-6 column">
-		</div>
-	</div>
-	<footer style="background-color: gray">
-		<div class="row clearfix">		
-		<div class="col-md-4 column">
-			<p>
-				About Clara-Lytics
-			</p>
-			<p>
-				The clara-Lytics is an analytics dashboard that helps you analyse your website's traffic using various metrics
-			</p>
-		</div>
-		<div class="col-md-4 column">
-			<p>
-				Features
-			</p>
-			<p>
-				The clara-Lytics is an analytics dashboard that helps you analyse your website's traffic using various metrics
-			</p>
-		</div>
-		<div class="col-md-4 column">
-			<p>
-				Contact Us
-			<p>
-			<p>
-				<small> Prithvi, Pooja , Pranav</small>
-			</p>
-		</div>
-	</div>
-	</footer>
-	
 </div>
-
+<div class="clearfix">
+	<div class="landing-content">
+		<div class="col-md-3 column lcontent">
+			<h3><span class="glyphicon glyphicon-cloud head-icons"></span> About ClaraLytics </h3>
+			<p>ClaraLytics is a free web-based dashboard that visualizes your Google Analytics data beautifully.</p>
+		</div>
+				<div class="col-md-1 column">
+		</div>
+		<div class="col-md-3 column lcontent">
+			<h3><span class="glyphicon glyphicon-stats head-icons"></span> Features </h3>
+			<p>ClaraLytics helps you discover data for various web metrics such as: </p>
+			<ul>
+				<li>Weekly & monthly visitors</li>
+				<li>Content popularity</li>
+				<li>Geographical audience</li>
+				<li>Devices used to access your website</li>
+			</ul>
+		</div>
+				<div class="col-md-1 column">
+		</div>
+		<div class="col-md-3 column lcontent">
+			<h3><span class="glyphicon glyphicon-phone-alt head-icons"></span> Get In Touch </h3>
+			<p>Interested in gaining valuable insights for your website?</p>
+			<p><a href="mailto:clara.lytics@gmail.com">Drop us a line!</a></p>
+			<p>And we'll help you get started.</p>
+		</div>
+				<div class="col-md-1 column">
+		</div>
+	</div>
+</div>
+<div class="sticky-footer navbar navbar-default navbar-fixed-bottom">
+	<div class="sticky-footer-content">
+		<p><span class="glyphicon glyphicon-copyright-mark"> </span>ClaraLytics 2013-14 </p>
+	</div>
+</div>
 {% endblock %}

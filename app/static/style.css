@@ -3,10 +3,73 @@
   src: url('GauntletClassic_TB.ttf'); 
 } 
 
+html, body{
+  height: 100%;
+}
+
+body > .main-wrapper { height: auto; min-height: 100%; }
+
+.main-wrapper{
+  height: 100%;
+  width: 100%;
+  background-color: #e6e6e6;
+}
+
 .panel-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
+}
+
+.landing-content{
+  min-height: 15em;
+  background-color: #e6e6e6;
+  margin-top: -1.5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 5em;
+  width: 90%;
+}
+
+.lcontent{
+  margin-left: 2%;
+  height: 20em;
+  /*margin-top: 0.5%;*/
+  text-align: left;
+}
+
+.lcontent p, li{
+  font-family: Gauntlet;
+  font-size: 12pt;
+}
+
+.lcontent h3{
+  font-family: Gauntlet;
+}
+
+.landing-text{
+  margin-left: auto;
+  margin-right: 2%;
+  text-align: center;
+  margin-top: -2%;
+}
+
+.login-button{
+  width: 35%;
+  margin: 5% auto auto auto;
+}
+
+.landingTitle h1{
+  color: white;
+  font-family: Gauntlet;
+  text-shadow: 2px 3px gray;
+  letter-spacing: -2px;
+}
+
+.landingTitle p{
+  color: white;
+  font-family: Gauntlet;
+  margin-top: -0.5%;
 }
 
 /*.btn-sm {
@@ -59,13 +122,6 @@
   font-size: 33pt;
 }
 
-#login_button a{
-  float:right;
-  color: white;
-  font-family: Gauntlet;
-  font-size: 15pt;
-}
-
 /* 
   Styles for graphs are defined below
 */
@@ -116,5 +172,32 @@
 }
 
 .landingTitle{
-  background: url('jumbotron_bg.jpg');
- }
+  min-height: 10em;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url('landing_bg.jpg');
+  background-position: top center;
+  width: 100%;
+}
+
+.sticky-footer{
+  background-color: #d9d9d9;
+  height: 12%;
+  border: 0px;
+}
+
+.head-icons{
+  margin-right: 5%;
+}
+
+.sticky-footer-content{
+  margin-left: 10%;
+  margin-top: 2%;
+  font-family: Gauntlet;
+  font-size: 12pt;
+}
+
+.sticky-footer-content span{
+  margin-right: 10px;
+  font-size: 10pt;
+}
