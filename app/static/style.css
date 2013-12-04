@@ -62,7 +62,6 @@ body > .main-wrapper { height: auto; min-height: 100%; }
 .landingTitle h1{
   color: white;
   font-family: Gauntlet;
-  text-shadow: 2px 3px gray;
   letter-spacing: -2px;
 }
 
