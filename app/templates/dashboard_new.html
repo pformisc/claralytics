@@ -186,21 +186,15 @@
 		</div>
 		<div class = "right" style="float:right;height:inherit">
 			<div id="login_button">
-				{% if username %}
-					<!--<span class="welcome-msg">Welcome! {{ username }}</span>-->
-				  	<button type="button" class="btn btn-default dropdown-toggle glyphicon glyphicon-user user-icon" data-toggle="dropdown">
-				  	<span class="caret"></span>
-						</button>
-					<ul class="dropdown-menu pull-right user-menu" role="menu">
-					    <li class="welcome-msg">Welcome! {{ username }}</li>
-					    <br>
-					    <li class="login-button"><a class="logout-btn btn-sm btn-primary" href="/logout" role="button">Logout</a></li>
-					 </ul>
-					<br>
-					<!--<a href="/logout"> Logout </a>-->
-				{% else %}
-					<a href="/login"> Login </a>
-				{% endif %}
+			  	<button type="button" class="btn btn-default dropdown-toggle glyphicon glyphicon-user user-icon" data-toggle="dropdown">
+			  	<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right user-menu" role="menu">
+				    <li class="welcome-msg">Welcome! {{ username }}</li>
+				    <br>
+				    <li><a class="logout-btn btn-default btn-primary" href="/logout" role="button">Logout</a></li>
+				 </ul>
+				<br>
 			</div>
 		</div>
 	</div>
@@ -289,17 +283,14 @@
 	</div>
 	<div class="row clearfix">
 		<div class="col-md-8 column">
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-road"></span> Geographic User Base
+						<span class="glyphicon glyphicon-globe"></span> Geographical Diversity
 					</h3>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body" id="Geomap">
 				<div id="geo_hits" data-geo="{{controller.fetch_geo_network()}}" style="display:none"></div>
-					Panel content
-				</div>
-				<div class="panel-body" id="Geomap" style="width: 700px; height: 400px">
                 <script type="text/javascript"> 
 					var geo_data = $('#geo_hits').data('geo');
 					var geo_items = [];
@@ -405,7 +396,7 @@
  			  		}
 					 
 				 });
-				 var contentString = '<div  style="font-size:15px" id="content"><div id="state" style="padding:0;"><p><b>State:</b></p><span style="color:#008080;"><b>'+t+'</b></p></div><div id="userbase" style="padding:0;"><p><b>UserBase:</b></p><span style="color:#008080;"><b>'+value+'</b></p></div></div>';
+				 var contentString = '<div id="geo-map-content" style="font-size:10pt"><div id="state" style="padding:0;"><p><b>State:</b></p><span style="color:#008080;"><b>'+t+'</b></p></div><div id="userbase" style="padding:0;"><p><b>Number of Visitors:</b></p><span style="color:#008080;"><b>'+value+'</b></p></div></div>';
 				 var infowindow = new google.maps.InfoWindow({
       				content: contentString });
 				  google.maps.event.addListener(marker, 'click', function() {
@@ -415,13 +406,9 @@
 		}
 		
     </script>
-    </div>
-				<div class="panel-footer">
-					Panel footer
-				</div>
-                
-			</div>
-		</div>
+    	</div>     
+	</div>
+	</div>
 		<div class="col-md-4 column">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -440,21 +427,18 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-	<!-- new stuff -->
 		<div class="row clearfix">
 		<div class="col-md-12 column">
 			
-			<div class="panel panel-info">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						Social Media Presence
+						<span class="glyphicon glyphicon-thumbs-up"></span>  Social Media Interactions
 					</h3>
 				</div>
 				<div class="panel-body">
-				
 				<div class="row clearfix">
-			<div class="col-md-12 column">
+				<div class="col-md-12 column">
 				<div class="row clearfix">
 					<div class="col-md-4 column">
 						<div class="row clearfix">
@@ -489,18 +473,13 @@
 								<h2 class="text-center text-primary" style = "float:left">
 									30
 								</h2>
-							
-							
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>				
 		</div>
-						
-				</div>
-					
-			</div>
 	</div>
 </div>
 {% endblock %}
