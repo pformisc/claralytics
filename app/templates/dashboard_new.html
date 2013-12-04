@@ -301,38 +301,37 @@
 				</div>
 				<div class="panel-body" id="Geomap" style="width: 700px; height: 400px">
                 <script type="text/javascript"> 
-				var geo_data = $('#geo_hits').data('geo');
-				var geo_items = [];
-				$.each(geo_data, function(key, value){
-      				geo_items.push([key, value]);
-					});
-					//console.log(geo_items);
-				
-				var source="{{url_for('static',filename='MapCoordinates.json')}}";
-				
-			  var minZoomLevel = 4;
-			   var maxZoomLevel=6;
-		      var myOptions = { 
-			  mapTypeId: google.maps.MapTypeId.ROADMAP, 
-			  center: new google.maps.LatLng(38.55547456,-95.664999),
-			  zoom:minZoomLevel,
-			  scaleControl:false,
-			   panControl: false,
-			   width:450,
-			   height:400,
-			   zoomControl:true,
-			   zoomControlOptions: {
-				   style: google.maps.ZoomControlStyle.DEFAULT},
-			   overviewMapControl:false
-			   };
+					var geo_data = $('#geo_hits').data('geo');
+					var geo_items = [];
+					$.each(geo_data, function(key, value){
+	      				geo_items.push([key, value]);
+						});
+					
+				  var source="{{url_for('static',filename='MapCoordinates.json')}}";
+					
+				  var minZoomLevel = 4;
+				  var maxZoomLevel=6;
+			      var myOptions = { 
+				  mapTypeId: google.maps.MapTypeId.ROADMAP, 
+				  center: new google.maps.LatLng(38.55547456,-95.664999),
+				  zoom:minZoomLevel,
+				  scaleControl:false,
+				   panControl: false,
+				   width:450,
+				   height:400,
+				   zoomControl:true,
+				   zoomControlOptions: {
+					   style: google.maps.ZoomControlStyle.DEFAULT},
+				   overviewMapControl:false
+				   };
 	   
 	  
-		      var map = new google.maps.Map(document.getElementById('Geomap'), myOptions);
-			  
-			   var strictBounds = new google.maps.LatLngBounds(
-		     new google.maps.LatLng(28.70, -127.50), 
-		     new google.maps.LatLng(48.85, -55.90)
-		   );
+			      var map = new google.maps.Map(document.getElementById('Geomap'), myOptions);
+				  
+				   var strictBounds = new google.maps.LatLngBounds(
+			     	new google.maps.LatLng(28.70, -127.50), 
+			     	new google.maps.LatLng(48.85, -55.90)
+			   	  );
 	  
 		  google.maps.event.addListener(map, 'dragend', function() {
 	     if (strictBounds.contains(map.getCenter())) return;
@@ -367,16 +366,14 @@
          for (var i = 0; i <= info.Values.length-1; i++) {
 			 for(var j=0;j<=geo_items.length -1;j++)
 			 {
+			 /*console.log('JSON VAL: ' + info.Values[i]['STATE'].toUpperCase() + ' GITEMS: ' + geo_items[j][0].toUpperCase());
+			 console.log('JSON VAL: ' + info.Values[i]['STATE'].toUpperCase().length + ' GITEMS: ' + geo_items[j][0].toUpperCase().length);*/
 			 if(info.Values[i]['STATE'].toUpperCase()==geo_items[j][0].toUpperCase())
 			 {
-				 
-			 
-            var latLng = new google.maps.LatLng(info.Values[i]['LATITUDE'],info.Values[i]['LONGITUDE']); 
-			var title="STATE:"+info.Values[i]['STATE'];
-            var marker=createMarker(latLng,info.Values[i]['STATE'],geo_items[j][1]);
-			
+	            var latLng = new google.maps.LatLng(info.Values[i]['LATITUDE'],info.Values[i]['LONGITUDE']); 
+				var title="STATE:"+info.Values[i]['STATE'];
+	            var marker=createMarker(latLng,info.Values[i]['STATE'],geo_items[j][1]);
 			 }
-			
 		 }
 		 }
 		
@@ -386,7 +383,7 @@
 		
 		function createMarker(pos,t,value)
 		{
-			
+				//console.log('Reached Here');
 				var marker = new google.maps.Marker({
                 position:pos,
 				map:map,
