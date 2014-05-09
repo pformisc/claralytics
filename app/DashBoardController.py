@@ -33,6 +33,7 @@ class DashBoardController(object):
 
 	def fetch_geo_network(self):
 		return self.gapicontroller.query_geo_network()
-
+'''
 	def fetch_social_activities(self):
 		return self.gapicontroller.query_google_plus_actions()
+'''

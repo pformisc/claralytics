@@ -160,7 +160,7 @@ class GoogleAPIController(object):
 						geo_network[elem[1]] = int(elem[2])
 
 		return json.dumps(geo_network, sort_keys=True)
-
+'''
 	def query_google_plus_actions(self):
 		start_date = date(self.current_date.year, self.current_date.month, 1)		
 		end_date = self.current_date
@@ -173,3 +173,4 @@ class GoogleAPIController(object):
 		).execute()
 
 		return 1 
+'''
